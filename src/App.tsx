@@ -57,7 +57,22 @@ export default function App() {
           searchQuery={searchQuery}
         />
         <Deals />
-        <Brands />
+        <Brands onBrandClick={(brand) => {
+          setSearchQuery(brand);
+          const element = document.getElementById('products');
+          if (element) {
+            const offset = 80; // approximate navbar height
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = element.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = elementPosition - offset;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }} />
       </main>
       <Footer />
 
