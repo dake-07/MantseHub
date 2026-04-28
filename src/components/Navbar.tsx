@@ -19,7 +19,7 @@ export default function Navbar({ cartCount, searchQuery, setSearchQuery, onCartC
       <nav className="sticky top-4 z-50 mx-4 md:mx-auto max-w-7xl transition-all duration-300 mt-4 bg-white/70 backdrop-blur-xl border border-white/20 shadow-xl shadow-black/5 rounded-full">
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 md:h-20 items-center">
-            <div className="flex-shrink-0 flex items-center">
+            <div className="flex items-center min-w-0 mr-1">
               <Logo />
             </div>
             
@@ -60,23 +60,23 @@ export default function Navbar({ cartCount, searchQuery, setSearchQuery, onCartC
               </button>
             </div>
 
-            <div className="flex md:hidden items-center space-x-1 -mr-2">
+            <div className="flex md:hidden items-center space-x-0.5 -mr-2">
               <button 
                 onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
-                className="text-premium-gray hover:text-premium-black transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full hover:bg-black/5"
+                className="text-premium-gray hover:text-premium-black transition-colors p-1.5 sm:p-2 flex items-center justify-center rounded-full hover:bg-black/5"
               >
-                <Search className="h-6 w-6" />
+                <Search className="h-5 w-5" />
               </button>
-              <button className="text-premium-gray hover:text-premium-black relative transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full hover:bg-black/5" onClick={onCartClick}>
-                <ShoppingCart className="h-6 w-6" />
+              <button className="text-premium-gray hover:text-premium-black relative transition-colors p-1.5 sm:p-2 flex items-center justify-center rounded-full hover:bg-black/5" onClick={onCartClick}>
+                <ShoppingCart className="h-5 w-5" />
                 {cartCount > 0 && (
-                  <span className="absolute top-1 right-1 bg-premium-gold text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
+                  <span className="absolute top-0 right-0 bg-premium-gold text-white text-[9px] font-bold rounded-full h-3.5 w-3.5 flex items-center justify-center">
                     {cartCount}
                   </span>
                 )}
               </button>
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-premium-gray hover:text-premium-black transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full hover:bg-black/5">
-                {isMenuOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-premium-gray hover:text-premium-black transition-colors p-1.5 sm:p-2 flex items-center justify-center rounded-full hover:bg-black/5">
+                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
             </div>
           </div>

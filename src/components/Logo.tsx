@@ -21,10 +21,12 @@ export default function Logo({ className = "" }: { className?: string }) {
       />
       
       {/* The Restored Text Layout */}
-      <div className="flex flex-wrap items-center text-lg sm:text-xl lg:text-2xl font-extrabold tracking-tighter leading-tight">
+      <div className="flex flex-col sm:flex-row sm:items-center text-[13px] min-[375px]:text-[14px] leading-[1.1] sm:leading-tight sm:text-xl lg:text-2xl font-extrabold tracking-tighter justify-center">
         <span className="text-premium-black">MANTSE</span>
-        <span className="text-premium-gray font-normal mx-1">ELECTRONICS</span>
-        <span className="text-premium-black">HUB</span>
+        <div className="flex items-center">
+          <span className="text-premium-gray font-normal sm:mx-1">ELECTRONICS</span>
+          <span className="text-premium-black ml-1 sm:ml-0">HUB</span>
+        </div>
       </div>
     </a>
   );
