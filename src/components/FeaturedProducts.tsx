@@ -26,6 +26,7 @@ const products = [
     category: "Samsung",
     rating: 5,
     reviews: 124,
+    price: 24000,
     image: fold7Img,
     detailed_specs: { display: "7.6-inch Foldable Dynamic AMOLED 2X", processor: "Snapdragon 8 Gen 5", camera: "50MP Triple Rear Camera", battery: "4400mAh with 45W Fast Charging" }
   },
@@ -35,6 +36,7 @@ const products = [
     category: "Samsung",
     rating: 5,
     reviews: 89,
+    price: 30000,
     image: zTriFoldImg,
     detailed_specs: { display: "10.2-inch Triple-Folding Screen", hinge: "Dual-Axis Elite Hinge", os: "Android 16 Optimized for Tri-Fold", durability: "IPX8 Water Resistance" }
   },
@@ -44,6 +46,7 @@ const products = [
     category: "Samsung",
     rating: 5,
     reviews: 342,
+    price: 18000,
     image: s26UltraImg,
     detailed_specs: { display: "6.8-inch QHD+ 144Hz AMOLED", processor: "Snapdragon 8 Gen 5", camera: "200MP Main + 100x Space Zoom", build: "Grade 5 Titanium Frame" }
   },
@@ -53,6 +56,7 @@ const products = [
     category: "SmartWatches",
     rating: 4,
     reviews: 210,
+    price: 4500,
     image: watch8Img,
     detailed_specs: { sensors: "BioActive Health Sensor Suite", battery: "Up to 80 hours", screen: "Sapphire Crystal Glass", os: "WearOS 6" }
   },
@@ -62,6 +66,7 @@ const products = [
     category: "iPhones",
     rating: 5,
     reviews: 178,
+    price: 15000,
     image: iphoneAirImg,
     detailed_specs: { design: "Ultra-Thin 5.1mm Chassis", processor: "A19 Bionic Chip", security: "FaceID 2.0 (Under-display)", weight: "Lightest iPhone ever" }
   },
@@ -71,6 +76,7 @@ const products = [
     category: "iPhones",
     rating: 5,
     reviews: 312,
+    price: 12000,
     image: iphone16Img,
     detailed_specs: { display: "6.1-inch Super Retina XDR", processor: "A18 Chip", camera: "48MP Dual Camera System", feature: "Action Button Integration" }
   },
@@ -80,6 +86,7 @@ const products = [
     category: "iPhones",
     rating: 5,
     reviews: 145,
+    price: 21000,
     image: iphone17ProMaxImg,
     detailed_specs: { display: "6.7-inch ProMotion 120Hz", processor: "A19 Pro Chip", zoom: "10x Optical Periscope Zoom", video: "8K ProRes @ 60fps" }
   },
@@ -89,6 +96,7 @@ const products = [
     category: "Samsung",
     rating: 4,
     reviews: 56,
+    price: 2500,
     image: a07Img,
     detailed_specs: { display: "6.5-inch Infinity-V Display", battery: "5000mAh Massive Battery", storage: "Expandable via MicroSD", charger: "Includes 25W Wall Adapter" }
   },
@@ -98,6 +106,7 @@ const products = [
     category: "Tablets",
     rating: 5,
     reviews: 94,
+    price: 16000,
     image: tabS11UltraImg,
     detailed_specs: { display: "14.6-inch Super AMOLED", connectivity: "5G & WiFi 7 Ready", pen: "Low-Latency S-Pen Included", multitasking: "Samsung DeX Support" }
   },
@@ -107,6 +116,7 @@ const products = [
     category: "Tablets",
     rating: 4,
     reviews: 112,
+    price: 4000,
     image: tabA11Img,
     detailed_specs: { screen: "11-inch WUXGA Display", battery: "7,040mAh", audio: "Dual Stereo Speakers", security: "Face Recognition" }
   },
@@ -116,6 +126,7 @@ const products = [
     category: "Laptops",
     rating: 5,
     reviews: 67,
+    price: 18000,
     image: hpFlipImg,
     detailed_specs: { type: "2-in-1 Convertible Design", cpu: "Intel Core 5 (Series 1)", screen: "14-inch Touchscreen OLED", security: "Fingerprint Reader" }
   },
@@ -125,6 +136,7 @@ const products = [
     category: "Speakers",
     rating: 5,
     reviews: 88,
+    price: 2200,
     image: beatsPillImg,
     detailed_specs: { audio: "High-Excursion Woofer", battery: "24-Hour Battery Life", ruggedness: "IP67 Water/Dust Resistance", fast_charge: "10 mins = 2 hours play" }
   },
@@ -134,6 +146,7 @@ const products = [
     category: "Televisions",
     rating: 5,
     reviews: 32,
+    price: 45000,
     image: tclTvImg,
     detailed_specs: { panel: "Quantum Dot QLED 144Hz", gaming: "Game Master 2.0 Mode", audio: "Onkyo Surround Sound", os: "Google TV Built-in" }
   },
@@ -143,6 +156,7 @@ const products = [
     category: "Samsung",
     rating: 5,
     reviews: 142,
+    price: 14000,
     image: s25Img,
     detailed_specs: { display: "6.2-inch Dynamic AMOLED", processor: "Snapdragon 8 Gen 4", camera: "50MP Main Camera", ai: "Galaxy AI Features" }
   },
@@ -152,6 +166,7 @@ const products = [
     category: "Samsung",
     rating: 5,
     reviews: 215,
+    price: 19000,
     image: s25UltraImg,
     detailed_specs: { display: "6.8-inch Flat Frame", build: "Titanium Construction", camera: "200MP Quad Zoom System", stylus: "Embedded S-Pen" }
   },
@@ -161,6 +176,7 @@ const products = [
     category: "iPhones",
     rating: 5,
     reviews: 412,
+    price: 19500,
     image: iphone16ProMaxImg,
     detailed_specs: { display: "6.9-inch Borderless Screen", processor: "A18 Pro Chip", camera: "Fusion 48MP Camera", connection: "WiFi 7 Ready" }
   },
@@ -170,19 +186,20 @@ const products = [
     category: "Tablets",
     rating: 4,
     reviews: 95,
+    price: 8500,
     image: ipadA16Img,
     detailed_specs: { chip: "A16 Bionic (6-core CPU)", display: "10.9-inch Liquid Retina", ports: "USB-C Connectivity", video: "4K Video Recording" }
   }
 ];
 
 interface FeaturedProps {
-  addToCart: () => void;
+  addToCart: (product: any) => void;
   selectedCategory: string;
   onClearFilter: () => void;
   searchQuery?: string;
 }
 
-const ProductCard = ({ product, setSelectedProduct }: { product: any, setSelectedProduct: (p: any) => void }) => {
+const ProductCard = ({ product, setSelectedProduct, addToCart }: { product: any, setSelectedProduct: (p: any) => void, addToCart: (p: any) => void }) => {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-black/5 overflow-hidden hover:shadow-xl hover:shadow-black/5 transition-shadow duration-300 group flex flex-col h-full">
       <div className="relative aspect-square sm:aspect-w-1 sm:aspect-h-1 bg-gradient-to-tr from-black/5 to-transparent overflow-hidden shrink-0">
@@ -207,6 +224,9 @@ const ProductCard = ({ product, setSelectedProduct }: { product: any, setSelecte
         </div>
         
         <div className="mt-auto flex flex-col gap-2 sm:gap-3">
+          <div className="text-lg font-black text-premium-black mb-1">
+            GH₵ {product.price.toLocaleString()}
+          </div>
           <button 
             onClick={() => setSelectedProduct(product)}
             className="text-xs sm:text-sm font-bold text-premium-black hover:text-premium-gray transition-colors group/link w-fit flex items-center"
@@ -214,14 +234,12 @@ const ProductCard = ({ product, setSelectedProduct }: { product: any, setSelecte
             Details 
             <span className="ml-1 inline-block transition-transform group-hover/link:translate-x-1">→</span>
           </button>
-          <a 
-            href={`https://wa.me/233271292016?text=${encodeURIComponent(`Hi, I am interested in the ${product.name}. Is it available?`)}`}
-            target="_blank" 
-            rel="noopener noreferrer"
+          <button 
+            onClick={() => addToCart(product)}
             className="w-full bg-premium-black text-white text-center py-2 sm:py-3 px-2 sm:px-4 rounded-lg sm:rounded-xl font-bold text-xs sm:text-base hover:bg-black/80 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/20 transition-all active:scale-[0.98]"
           >
-            Shop
-          </a>
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>
@@ -268,7 +286,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
                   <div className="grid grid-cols-2 gap-4 sm:gap-8">
                     {showstoppers.map(product => (
                       <div key={product.id} className="md:scale-[1.02] origin-top">
-                        <ProductCard product={product} setSelectedProduct={setSelectedProduct} />
+                        <ProductCard product={product} setSelectedProduct={setSelectedProduct} addToCart={addToCart} />
                       </div>
                     ))}
                   </div>
@@ -284,7 +302,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
                       <div className="flex overflow-x-auto gap-4 sm:gap-6 pb-6 snap-x snap-mandatory hide-scrollbar">
                         {swipeTrack.map(product => (
                           <div key={product.id} className="w-[150px] min-w-[150px] sm:min-w-[200px] lg:min-w-[28%] snap-start shrink-0">
-                            <ProductCard product={product} setSelectedProduct={setSelectedProduct} />
+                            <ProductCard product={product} setSelectedProduct={setSelectedProduct} addToCart={addToCart} />
                           </div>
                         ))}
                       </div>
@@ -300,7 +318,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
                     </div>
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
                       {theGrid.map((product) => (
-                        <ProductCard key={product.id} product={product} setSelectedProduct={setSelectedProduct} />
+                        <ProductCard key={product.id} product={product} setSelectedProduct={setSelectedProduct} addToCart={addToCart} />
                       ))}
                     </div>
                   </div>
@@ -310,7 +328,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
             ) : (
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
                 {theGrid.map((product) => (
-                  <ProductCard key={product.id} product={product} setSelectedProduct={setSelectedProduct} />
+                  <ProductCard key={product.id} product={product} setSelectedProduct={setSelectedProduct} addToCart={addToCart} />
                 ))}
               </div>
             )}
@@ -359,7 +377,10 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
                   <img src={selectedProduct.image} alt={selectedProduct.name} className="h-full w-full object-contain mix-blend-darken" />
                 </div>
 
-                <h3 className="text-xl font-bold text-premium-black mb-6">{selectedProduct.name}</h3>
+                <div className="flex justify-between items-start mb-6">
+                  <h3 className="text-xl font-bold text-premium-black">{selectedProduct.name}</h3>
+                  <span className="text-xl font-black text-premium-gold whitespace-nowrap ml-4">GH₵ {selectedProduct.price.toLocaleString()}</span>
+                </div>
 
                 <div className="space-y-4 mb-8">
                   {Object.entries(selectedProduct.detailed_specs || {}).map(([key, value]) => (
@@ -374,14 +395,15 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
               </div>
 
               <div className="shrink-0 p-6 pt-4 bg-premium-bg/90 backdrop-blur-md border-t border-black/5">
-                <a 
-                  href={`https://wa.me/233271292016?text=${encodeURIComponent(`Hi, I am interested in the ${selectedProduct.name}. Is it available?`)}`}
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block w-full bg-premium-black text-white text-center py-4 px-4 rounded-xl font-bold text-lg shadow-lg shadow-black/20 hover:bg-black/80 hover:-translate-y-0.5 transition-all"
+                <button 
+                  onClick={() => {
+                    addToCart(selectedProduct);
+                    setSelectedProduct(null);
+                  }}
+                  className="w-full bg-premium-black text-white text-center py-4 px-4 rounded-xl font-bold text-lg shadow-lg shadow-black/20 hover:bg-black/80 hover:-translate-y-0.5 transition-all"
                 >
-                  Order on WhatsApp
-                </a>
+                  Add to Cart
+                </button>
               </div>
             </motion.div>
           </>
