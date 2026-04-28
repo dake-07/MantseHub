@@ -31,6 +31,8 @@ export default function App() {
       }
       return [...prev, { product, quantity: 1 }];
     });
+    // Auto-open the cart drawer to prompt checkout immediately
+    setIsCartOpen(true);
   };
 
   const updateQuantity = (id: number, delta: number) => {
