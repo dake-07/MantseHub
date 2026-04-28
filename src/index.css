@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", sans-serif;
+  --color-premium-black: #1C1917;
+  --color-premium-gray: #44403C;
+  --color-premium-gold: #CA8A04;
+  --color-premium-bg: #FAFAF9;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-premium-bg);
+  color: var(--color-premium-black);
+}
+
+@layer utilities {
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

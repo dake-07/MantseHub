@@ -11,28 +11,32 @@ const categories = [
   { name: 'Accessories & More', image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60' },
 ];
 
-export default function Categories() {
+interface CategoriesProps {
+  onSelectCategory: (category: string) => void;
+}
+
+export default function Categories({ onSelectCategory }: CategoriesProps) {
   return (
-    <section id="categories" className="py-16 bg-white">
+    <section id="categories" className="py-10 md:py-16 bg-premium-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight">Product Categories</h2>
+          <h2 className="text-4xl font-extrabold text-premium-black tracking-tight">Product Categories</h2>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
+        <div className="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory gap-4 sm:gap-6 md:grid md:grid-cols-4 lg:grid-cols-5 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 will-change-scroll">
           {categories.map((category) => (
             <div 
               key={category.name} 
-              className="relative rounded-2xl overflow-hidden group cursor-pointer aspect-[4/5] bg-gray-100" 
-              onClick={() => alert(`Viewing ${category.name}`)}
+              className="relative rounded-2xl overflow-hidden group cursor-pointer aspect-[4/5] bg-white/95 md:bg-white/60 md:backdrop-blur-md border border-black/5 hover:shadow-xl hover:shadow-black/5 transition-all duration-300 flex-shrink-0 w-40 sm:w-48 md:w-auto snap-start will-change-transform" 
+              onClick={() => onSelectCategory(category.name)}
             >
               <img 
                 src={category.image} 
                 alt={category.name} 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute bottom-4 left-0 right-0 flex justify-center px-3">
-                <div className="bg-white rounded-full py-2 px-5 shadow-sm max-w-full">
-                  <h3 className="text-sm font-medium text-gray-900 truncate">{category.name}</h3>
+                <div className="bg-white/90 backdrop-blur-md rounded-full py-2 px-5 shadow-sm max-w-full border border-black/5">
+                  <h3 className="text-sm font-medium text-premium-black truncate">{category.name}</h3>
                 </div>
               </div>
             </div>
