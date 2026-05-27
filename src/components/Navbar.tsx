@@ -2,7 +2,7 @@ import { ShoppingCart, Search, Menu, User, X } from 'lucide-react';
 import { useState } from 'react';
 import Logo from './Logo';
 
-export default function Navbar({ cartCount, searchQuery, setSearchQuery, onCartClick }: { cartCount: number, searchQuery: string, setSearchQuery: (query: string) => void, onCartClick: () => void }) {
+export default function Navbar({ cartCount, searchQuery, setSearchQuery, onCartClick, onSearchSubmit }: { cartCount: number, searchQuery: string, setSearchQuery: (query: string) => void, onCartClick: () => void, onSearchSubmit: () => void }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
 
@@ -16,7 +16,7 @@ export default function Navbar({ cartCount, searchQuery, setSearchQuery, onCartC
         </a>
       </div>
       
-      <nav className="sticky top-4 z-50 mx-4 md:mx-auto max-w-7xl transition-all duration-300 mt-4 bg-white/70 backdrop-blur-xl border border-white/20 shadow-xl shadow-black/5 rounded-full">
+      <nav className="sticky top-4 z-50 mx-4 md:mx-auto max-w-7xl transition-all duration-300 mt-4 bg-white/95 transform-gpu border border-white/20 shadow-xl shadow-black/5 rounded-full">
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 md:h-20 items-center">
             <div className="flex items-center min-w-0 mr-1">
@@ -37,16 +37,18 @@ export default function Navbar({ cartCount, searchQuery, setSearchQuery, onCartC
             </div>
 
             <div className="hidden md:flex items-center space-x-6">
-              <div className="relative">
+              <form onSubmit={(e) => { e.preventDefault(); onSearchSubmit(); }} className="relative">
                 <input 
                   type="text" 
                   placeholder="Search products..." 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-white/50 backdrop-blur-md border border-black/10 shadow-inner rounded-full py-2 px-5 text-sm focus:outline-none focus:ring-2 focus:ring-premium-gold/50 focus:border-premium-gold focus:bg-white text-premium-black placeholder:text-premium-gray w-48 lg:w-64 transition-all" 
+                  className="bg-white/90 border border-black/10 shadow-inner rounded-full py-2 px-5 text-sm focus:outline-none focus:ring-2 focus:ring-premium-gold/50 focus:border-premium-gold focus:bg-white text-premium-black placeholder:text-premium-gray w-48 lg:w-64 transition-all pr-10" 
                 />
-                <Search className="absolute right-4 top-2 h-4 w-4 text-premium-gray" />
-              </div>
+                <button type="submit" className="absolute right-4 top-2 h-4 w-4 text-premium-gray hover:text-premium-black transition-colors" aria-label="Search">
+                  <Search className="h-full w-full" />
+                </button>
+              </form>
               <button className="text-premium-gray hover:text-premium-black transition-colors">
                 <User className="h-5 w-5" />
               </button>
@@ -85,23 +87,25 @@ export default function Navbar({ cartCount, searchQuery, setSearchQuery, onCartC
         {/* Mobile Search Bar */}
         {isMobileSearchOpen && (
           <div className="md:hidden px-4 pb-4">
-            <div className="relative">
+            <form onSubmit={(e) => { e.preventDefault(); onSearchSubmit(); }} className="relative">
               <input 
                 type="text" 
                 placeholder="Search products..." 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white/50 backdrop-blur-md border border-black/10 shadow-inner rounded-full py-3 px-5 text-sm focus:outline-none focus:ring-2 focus:ring-premium-gold/50 focus:border-premium-gold focus:bg-white text-premium-black placeholder:text-premium-gray transition-all" 
+                className="w-full bg-white/90 border border-black/10 shadow-inner rounded-full py-3 px-5 text-sm focus:outline-none focus:ring-2 focus:ring-premium-gold/50 focus:border-premium-gold focus:bg-white text-premium-black placeholder:text-premium-gray transition-all pr-12" 
                 autoFocus 
               />
-              <Search className="absolute right-4 top-3 h-5 w-5 text-premium-gray" />
-            </div>
+              <button type="submit" className="absolute right-4 top-3 h-5 w-5 text-premium-gray hover:text-premium-black transition-colors" aria-label="Search">
+                <Search className="h-full w-full" />
+              </button>
+            </form>
           </div>
         )}
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white/95 backdrop-blur-3xl border border-black/10 px-4 pt-2 pb-4 space-y-1 shadow-2xl absolute w-full left-0 z-40 rounded-[2rem] mt-4">
+          <div className="md:hidden bg-white/95 transform-gpu border border-black/10 px-4 pt-2 pb-4 space-y-1 shadow-2xl absolute w-full left-0 z-40 rounded-[2rem] mt-4">
             <a href="#" className="block px-3 py-3 text-base font-medium text-premium-gray hover:text-premium-black hover:bg-black/5 rounded-xl transition-colors">Home</a>
             <a href="#categories" className="block px-3 py-3 text-base font-medium text-premium-gray hover:text-premium-black hover:bg-black/5 rounded-xl transition-colors">Categories</a>
             <a href="#products" className="block px-3 py-3 text-base font-medium text-premium-gray hover:text-premium-black hover:bg-black/5 rounded-xl transition-colors">Shop</a>

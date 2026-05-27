@@ -2,6 +2,7 @@ export default function Brands({ onBrandClick }: { onBrandClick?: (brand: string
   const brands = [
     { name: 'Apple', logo: 'https://cdn.simpleicons.org/apple' },
     { name: 'Samsung', logo: 'https://cdn.simpleicons.org/samsung' },
+    { name: 'Google', logo: 'https://cdn.simpleicons.org/google' },
     { name: 'HP', logo: 'https://cdn.simpleicons.org/hp' },
     { name: 'Beats', logo: 'https://cdn.simpleicons.org/beats' },
     { name: 'TCL', logo: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40"><text x="50" y="32" font-family="Arial, sans-serif" font-weight="900" font-size="32" text-anchor="middle" fill="%23E51937">TCL</text></svg>' },

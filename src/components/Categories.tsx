@@ -1,6 +1,7 @@
 const categories = [
   { name: 'iPhones', image: 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60' },
   { name: 'Samsung', image: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60' },
+  { name: 'Google', image: 'https://images.unsplash.com/photo-1635870723802-e88d76ae324e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60' },
   { name: 'Tablets', image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60' },
   { name: 'Laptops', image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60' },
   { name: 'Gaming Consoles', image: 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60' },
@@ -26,7 +27,7 @@ export default function Categories({ onSelectCategory }: CategoriesProps) {
           {categories.map((category) => (
             <div 
               key={category.name} 
-              className="relative rounded-2xl overflow-hidden group cursor-pointer aspect-[4/5] bg-white/95 md:bg-white/60 md:backdrop-blur-md border border-black/5 hover:shadow-xl hover:shadow-black/5 transition-all duration-300 flex-shrink-0 w-40 sm:w-48 md:w-auto snap-start will-change-transform" 
+              className="relative rounded-2xl overflow-hidden group cursor-pointer aspect-[4/5] bg-white/95 border border-black/5 hover:shadow-xl hover:shadow-black/5 transition-all duration-300 flex-shrink-0 w-40 sm:w-48 md:w-auto snap-start will-change-transform" 
               onClick={() => onSelectCategory(category.name)}
             >
               <img 
@@ -35,7 +36,7 @@ export default function Categories({ onSelectCategory }: CategoriesProps) {
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute bottom-4 left-0 right-0 flex justify-center px-3">
-                <div className="bg-white/90 backdrop-blur-md rounded-full py-2 px-5 shadow-sm max-w-full border border-black/5">
+                <div className="bg-white/95 rounded-full py-2 px-5 shadow-sm max-w-full border border-black/5">
                   <h3 className="text-sm font-medium text-premium-black truncate">{category.name}</h3>
                 </div>
               </div>
