@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Star, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useProducts } from '../hooks/useProducts';
@@ -98,7 +98,13 @@ const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToC
 export default function FeaturedProducts({ addToCart, selectedCategory, onClearFilter, searchQuery = '' }: FeaturedProps) {
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [modalVariantIndex, setModalVariantIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(8);
   const { products, isLoading, error } = useProducts();
+
+  // Reset visible count when filters change
+  useEffect(() => {
+    setVisibleCount(8);
+  }, [selectedCategory, searchQuery]);
 
   const filteredProducts = products.filter(p => {
     const matchesCategory = selectedCategory === 'All' || p.category === selectedCategory;
@@ -112,6 +118,9 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
   const showstoppers = isAllCategory ? filteredProducts.slice(0, 2) : [];
   const swipeTrack = isAllCategory ? filteredProducts.slice(2, 8) : [];
   const theGrid = isAllCategory ? filteredProducts.slice(8) : filteredProducts;
+  
+  const displayedGrid = theGrid.slice(0, visibleCount);
+  const hasMore = visibleCount < theGrid.length;
 
   return (
     <section id="products" className="py-10 md:py-16 bg-premium-bg relative overflow-hidden">
@@ -177,24 +186,42 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
 
                 {/* 3. The Grid - Kept at 2 columns */}
                 {theGrid.length > 0 && (
-                  <div className="flex flex-col">
-                    <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <div className="flex flex-col items-center">
+                    <div className="w-full flex items-center justify-between mb-4 sm:mb-6">
                       <h3 className="text-lg sm:text-2xl font-bold text-premium-black">More Top Picks</h3>
                     </div>
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
-                      {theGrid.map((product) => (
+                    <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 mb-8 sm:mb-12">
+                      {displayedGrid.map((product) => (
                         <ProductCard key={product.id} product={product} setSelectedProduct={setSelectedProduct} setModalVariantIndex={setModalVariantIndex} addToCart={addToCart} />
                       ))}
                     </div>
+                    {hasMore && (
+                      <button 
+                        onClick={() => setVisibleCount(prev => prev + 12)}
+                        className="bg-black/5 hover:bg-black/10 text-premium-black font-semibold py-3 px-8 rounded-full transition-colors active:scale-95"
+                      >
+                        Load More Products
+                      </button>
+                    )}
                   </div>
                 )}
 
               </div>
             ) : (
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
-                {theGrid.map((product) => (
-                  <ProductCard key={product.id} product={product} setSelectedProduct={setSelectedProduct} setModalVariantIndex={setModalVariantIndex} addToCart={addToCart} />
-                ))}
+              <div className="flex flex-col items-center">
+                <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 mb-8 sm:mb-12">
+                  {displayedGrid.map((product) => (
+                    <ProductCard key={product.id} product={product} setSelectedProduct={setSelectedProduct} setModalVariantIndex={setModalVariantIndex} addToCart={addToCart} />
+                  ))}
+                </div>
+                {hasMore && (
+                  <button 
+                    onClick={() => setVisibleCount(prev => prev + 12)}
+                    className="bg-black/5 hover:bg-black/10 text-premium-black font-semibold py-3 px-8 rounded-full transition-colors active:scale-95"
+                  >
+                    Load More Products
+                  </button>
+                )}
               </div>
             )}
           </>
