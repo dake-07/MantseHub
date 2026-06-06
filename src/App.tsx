@@ -8,7 +8,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Categories from './components/Categories';
 import FeaturedProducts from './components/FeaturedProducts';
-import Deals from './components/Deals';
+import Showcase from './components/Showcase';
 import Brands from './components/Brands';
 import Footer from './components/Footer';
 
@@ -115,7 +115,7 @@ export default function App() {
           onClearFilter={() => setSelectedCategory('All')} 
           searchQuery={searchQuery}
         />
-        <Deals />
+        <Showcase />
         <Brands onBrandClick={(brand) => {
           setSearchQuery(brand);
           const element = document.getElementById('products');
