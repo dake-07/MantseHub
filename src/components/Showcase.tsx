@@ -1,11 +1,15 @@
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
-import iphoneProImg from '../assets/products/iphone_17_pro_max_1776976341649.png';
+import iphoneProImg from '../assets/product images/iphone-17-pro-deepblue.webp';
 import fold7Img from '../assets/product images/samsung galaxy fold 7.png';
 import macbookImg from '../assets/product images/macbook-neo-silver.webp';
 import watch8Img from '../assets/products/samsung_galaxy_watch_8_1776976282015.png';
 
-export default function Showcase() {
+interface ShowcaseProps {
+  onProductSelect: (query: string) => void;
+}
+
+export default function Showcase({ onProductSelect }: ShowcaseProps) {
   return (
     <section className="py-12 md:py-24 bg-premium-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,10 +26,7 @@ export default function Showcase() {
             whileHover={{ scale: 0.98 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="md:col-span-2 md:row-span-2 relative rounded-[2rem] overflow-hidden bg-[#0C0A09] group cursor-pointer shadow-2xl shadow-black/10"
-            onClick={() => {
-              const el = document.getElementById('products');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={() => onProductSelect('iPhone 17 Pro')}
           >
             <div className="absolute inset-0 z-0 flex items-center justify-center">
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 pointer-events-none"></div>
@@ -54,10 +55,7 @@ export default function Showcase() {
             whileHover={{ scale: 0.98 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="md:col-span-2 md:row-span-1 relative rounded-[2rem] overflow-hidden bg-gradient-to-br from-[#FAFAF9] to-[#E7E5E4] group cursor-pointer border border-black/5"
-            onClick={() => {
-              const el = document.getElementById('products');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={() => onProductSelect('Fold7')}
           >
             <div className="absolute inset-0 z-0 flex items-center justify-end pr-8 md:pr-16">
               <img 
@@ -82,10 +80,7 @@ export default function Showcase() {
             whileHover={{ scale: 0.98 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="md:col-span-1 md:row-span-1 relative rounded-[2rem] overflow-hidden bg-white group cursor-pointer border border-black/5 flex flex-col"
-            onClick={() => {
-              const el = document.getElementById('products');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={() => onProductSelect('MacBook')}
           >
             <div className="relative z-20 p-8 pt-10 flex flex-col justify-start text-center shrink-0">
               <h3 className="text-2xl font-extrabold text-premium-black tracking-tight mb-1">MacBook NEO</h3>
@@ -105,10 +100,7 @@ export default function Showcase() {
             whileHover={{ scale: 0.98 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="md:col-span-1 md:row-span-1 relative rounded-[2rem] overflow-hidden bg-gradient-to-br from-[#1C1917] to-[#292524] group cursor-pointer"
-            onClick={() => {
-              const el = document.getElementById('products');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={() => onProductSelect('Watch 8')}
           >
             <div className="absolute inset-0 z-0 flex items-center justify-center">
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>

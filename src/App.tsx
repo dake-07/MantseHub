@@ -115,7 +115,20 @@ export default function App() {
           onClearFilter={() => setSelectedCategory('All')} 
           searchQuery={searchQuery}
         />
-        <Showcase />
+        <Showcase onProductSelect={(query) => {
+          setSearchQuery(query);
+          setSelectedCategory('All');
+          const element = document.getElementById('products');
+          if (element) {
+            const offset = 80;
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = element.getBoundingClientRect().top;
+            window.scrollTo({
+              top: (elementRect - bodyRect) - offset,
+              behavior: 'smooth'
+            });
+          }
+        }} />
         <Brands onBrandClick={(brand) => {
           setSearchQuery(brand);
           const element = document.getElementById('products');
