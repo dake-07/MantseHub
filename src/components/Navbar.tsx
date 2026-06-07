@@ -1,10 +1,19 @@
 import { ShoppingCart, Search, Menu, User, X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Logo from './Logo';
 
 export default function Navbar({ cartCount, searchQuery, setSearchQuery, onCartClick, onSearchSubmit }: { cartCount: number, searchQuery: string, setSearchQuery: (query: string) => void, onCartClick: () => void, onSearchSubmit: () => void }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [isCartAnimating, setIsCartAnimating] = useState(false);
+
+  useEffect(() => {
+    if (cartCount > 0) {
+      setIsCartAnimating(true);
+      const timer = setTimeout(() => setIsCartAnimating(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [cartCount]);
 
   return (
     <>
@@ -52,7 +61,10 @@ export default function Navbar({ cartCount, searchQuery, setSearchQuery, onCartC
               <button className="text-premium-gray hover:text-premium-black transition-colors">
                 <User className="h-5 w-5" />
               </button>
-              <button className="text-premium-gray hover:text-premium-black relative transition-colors" onClick={onCartClick}>
+              <button 
+                className={`text-premium-gray hover:text-premium-black relative transition-all duration-300 ${isCartAnimating ? 'scale-125 text-premium-black' : 'scale-100'}`} 
+                onClick={onCartClick}
+              >
                 <ShoppingCart className="h-5 w-5" />
                 {cartCount > 0 && (
                   <span className="absolute -top-2 -right-2 bg-premium-gold text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
@@ -69,7 +81,10 @@ export default function Navbar({ cartCount, searchQuery, setSearchQuery, onCartC
               >
                 <Search className="h-5 w-5" />
               </button>
-              <button className="text-premium-gray hover:text-premium-black relative transition-colors p-1.5 sm:p-2 flex items-center justify-center rounded-full hover:bg-black/5" onClick={onCartClick}>
+              <button 
+                className={`text-premium-gray hover:text-premium-black relative transition-all duration-300 p-1.5 sm:p-2 flex items-center justify-center rounded-full hover:bg-black/5 ${isCartAnimating ? 'scale-125 text-premium-black' : 'scale-100'}`} 
+                onClick={onCartClick}
+              >
                 <ShoppingCart className="h-5 w-5" />
                 {cartCount > 0 && (
                   <span className="absolute top-0 right-0 bg-premium-gold text-white text-[9px] font-bold rounded-full h-3.5 w-3.5 flex items-center justify-center">
