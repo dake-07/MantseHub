@@ -20,7 +20,7 @@ export default function Brands({ onBrandClick }: { onBrandClick?: (brand: string
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8 items-center justify-items-center mt-8">
           {brands.map((brand) => (
             <div key={brand.name} onClick={() => onBrandClick && onBrandClick(brand.name)} className="w-full py-6 flex items-center justify-center px-4 grayscale hover:grayscale-0 hover:scale-110 transition-all duration-300 cursor-pointer">
-              <img src={brand.logo} alt={brand.name} className="max-h-12 md:max-h-14 lg:max-h-16 max-w-[80%] object-contain opacity-70 hover:opacity-100 transition-opacity duration-300" />
+              <img src={brand.logo} alt={brand.name} className="max-h-12 md:max-h-14 lg:max-h-16 max-w-[80%] object-contain opacity-70 hover:opacity-100 transition-opacity duration-300" loading="lazy" />
             </div>
           ))}
         </div>

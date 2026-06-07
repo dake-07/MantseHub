@@ -34,6 +34,7 @@ export default function Categories({ onSelectCategory }: CategoriesProps) {
                 src={category.image} 
                 alt={category.name} 
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
               />
               <div className="absolute bottom-4 left-0 right-0 flex justify-center px-3">
                 <div className="bg-white/95 rounded-full py-2 px-5 shadow-sm max-w-full border border-black/5">

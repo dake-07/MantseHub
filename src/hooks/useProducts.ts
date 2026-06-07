@@ -92,7 +92,7 @@ export function useProducts() {
               name: f.name || 'Unnamed Product',
               category: f.category || 'Uncategorized',
               price: f.price || 0,
-              image: f.image && f.image.length > 0 ? f.image[0].url : '',
+              image: f.image && f.image.length > 0 ? (f.image[0].thumbnails?.large?.url || f.image[0].url) : '',
               rating: f.rating || 5,
               reviews: f.reviews || 0,
               variants: f.variants ? f.variants.split(',').map((s: string) => s.trim()) : undefined,

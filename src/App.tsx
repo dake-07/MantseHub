@@ -98,7 +98,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-premium-bg font-sans text-premium-black relative">
+    <div className="min-h-screen bg-premium-bg font-sans text-premium-black relative overflow-x-hidden">
       <Navbar 
         cartCount={totalCartCount} 
         searchQuery={searchQuery}

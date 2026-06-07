@@ -33,6 +33,7 @@ const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToC
           src={activeImage}
           alt={product.name}
           className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
         />
       </div>
       <div className="p-3 sm:p-5 flex flex-col flex-grow">
@@ -52,11 +53,15 @@ const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToC
                 <button
                   key={idx}
                   onClick={(e) => { e.stopPropagation(); setSelectedColorIndex(idx); }}
-                  className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border border-black/20 shadow-sm transition-all duration-200 ${selectedColorIndex === idx ? 'ring-2 ring-premium-black ring-offset-2 scale-110' : 'hover:scale-110'}`}
-                  style={{ backgroundColor: color.hex }}
+                  className="p-1 -m-1"
                   title={color.name}
                   aria-label={`Select color ${color.name}`}
-                />
+                >
+                  <div
+                    className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border border-black/20 shadow-sm transition-all duration-200 ${selectedColorIndex === idx ? 'ring-2 ring-premium-black ring-offset-2 scale-110' : 'hover:scale-110'}`}
+                    style={{ backgroundColor: color.hex }}
+                  />
+                </button>
               ))}
             </div>
           )}
@@ -74,7 +79,7 @@ const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToC
               });
               setModalVariantIndex(selectedVariantIndex);
             }}
-            className="text-xs sm:text-sm font-bold text-premium-black hover:text-premium-gray transition-colors group/link w-fit flex items-center"
+            className="text-xs sm:text-sm font-bold text-premium-black hover:text-premium-gray transition-colors group/link w-fit flex items-center py-2 min-h-[44px]"
           >
             Details 
             <span className="ml-1 inline-block transition-transform group-hover/link:translate-x-1">→</span>
@@ -85,7 +90,7 @@ const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToC
               price: activePrice,
               selected_variant: product.variants ? product.variants[selectedVariantIndex] : null
             })}
-            className="w-full bg-premium-black text-white text-center py-2 sm:py-3 px-2 sm:px-4 rounded-lg sm:rounded-xl font-bold text-xs sm:text-base hover:bg-black/80 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/20 transition-all active:scale-[0.98]"
+            className="w-full bg-premium-black text-white text-center py-3 px-2 sm:px-4 rounded-lg sm:rounded-xl font-bold text-xs sm:text-base hover:bg-black/80 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/20 transition-all active:scale-[0.98] min-h-[44px]"
           >
             Add to Cart
           </button>
@@ -198,7 +203,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
                     {hasMore && (
                       <button 
                         onClick={() => setVisibleCount(prev => prev + 12)}
-                        className="bg-black/5 hover:bg-black/10 text-premium-black font-semibold py-3 px-8 rounded-full transition-colors active:scale-95"
+                        className="bg-black/5 hover:bg-black/10 text-premium-black font-semibold py-3 px-8 rounded-full transition-colors active:scale-95 min-h-[44px]"
                       >
                         Load More Products
                       </button>
@@ -217,7 +222,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
                 {hasMore && (
                   <button 
                     onClick={() => setVisibleCount(prev => prev + 12)}
-                    className="bg-black/5 hover:bg-black/10 text-premium-black font-semibold py-3 px-8 rounded-full transition-colors active:scale-95"
+                    className="bg-black/5 hover:bg-black/10 text-premium-black font-semibold py-3 px-8 rounded-full transition-colors active:scale-95 min-h-[44px]"
                   >
                     Load More Products
                   </button>
@@ -266,7 +271,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
               
               <div className="flex-1 overflow-y-auto px-6 hide-scrollbar pb-4">
                 <div className="mb-6 rounded-2xl overflow-hidden bg-white/80 border border-black/5 p-4 aspect-video flex items-center justify-center">
-                  <img src={selectedProduct.displayImage || selectedProduct.image} alt={selectedProduct.name} className="h-full w-full object-contain mix-blend-darken" />
+                  <img src={selectedProduct.displayImage || selectedProduct.image} alt={selectedProduct.name} className="h-full w-full object-contain mix-blend-darken" loading="lazy" />
                 </div>
 
                 <div className="flex justify-between items-start mb-6">

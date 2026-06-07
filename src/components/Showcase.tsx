@@ -33,7 +33,8 @@ export default function Showcase({ onProductSelect }: ShowcaseProps) {
               <img 
                 src={iphoneProImg} 
                 alt="iPhone 17 Pro Max" 
-                className="w-[120%] h-[120%] object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out mix-blend-lighten opacity-80"
+                className="w-[120%] h-[120%] object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                loading="lazy"
               />
             </div>
             <div className="relative z-20 p-8 md:p-12 h-full flex flex-col justify-end">
@@ -61,7 +62,8 @@ export default function Showcase({ onProductSelect }: ShowcaseProps) {
               <img 
                 src={fold7Img} 
                 alt="Galaxy Fold 7" 
-                className="h-[120%] md:h-[140%] w-auto object-contain group-hover:scale-110 group-hover:-rotate-3 transition-all duration-700 ease-out drop-shadow-2xl translate-x-12 md:translate-x-0"
+                className="h-[120%] md:h-[140%] w-auto object-contain group-hover:scale-110 group-hover:-rotate-3 transition-all duration-700 ease-out translate-x-12 md:translate-x-0"
+                loading="lazy"
               />
             </div>
             <div className="relative z-20 p-8 md:p-10 h-full flex flex-col justify-center w-[70%]">
@@ -91,6 +93,7 @@ export default function Showcase({ onProductSelect }: ShowcaseProps) {
                 src={macbookImg} 
                 alt="MacBook Neo" 
                 className="w-[90%] h-auto object-contain group-hover:-translate-y-4 transition-transform duration-700 ease-out origin-bottom translate-y-4"
+                loading="lazy"
               />
             </div>
           </motion.div>
@@ -107,7 +110,8 @@ export default function Showcase({ onProductSelect }: ShowcaseProps) {
               <img 
                 src={watch8Img} 
                 alt="Galaxy Watch 8" 
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out opacity-70 mix-blend-screen"
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out opacity-70"
+                loading="lazy"
               />
             </div>
             <div className="relative z-20 p-8 h-full flex flex-col justify-between">
