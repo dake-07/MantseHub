@@ -1,7 +1,30 @@
-import { Facebook, Twitter, Instagram, Linkedin, MapPin, Phone, Mail } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin, MapPin, Phone, Mail, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import Logo from './Logo';
 
 export default function Footer() {
+  const [showEgg, setShowEgg] = useState(false);
+
+  useEffect(() => {
+    let keySequence = '';
+    const secretCode = 'saint';
+    
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key && e.key.length === 1) {
+        keySequence += e.key.toLowerCase();
+        if (keySequence.length > secretCode.length) {
+          keySequence = keySequence.slice(-secretCode.length);
+        }
+        if (keySequence === secretCode) {
+          setShowEgg(true);
+        }
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
     <footer id="contact" className="bg-[#f0eeeb] pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,16 +103,61 @@ export default function Footer() {
           </div>
         </div>
         
-        <div className="border-t border-black/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div className="border-t border-black/10 pt-8 flex flex-col md:flex-row justify-between items-center relative">
           <p className="text-xs text-premium-gray mb-4 md:mb-0">
             &copy; {new Date().getFullYear()} Mantse Electronics Hub. All rights reserved.
           </p>
-          <div className="flex space-x-6">
+          
+          {/* Subtle Trademark Signature */}
+          <div 
+            className="absolute left-1/2 -translate-x-1/2 flex items-center group cursor-pointer"
+            onClick={() => setShowEgg(true)}
+          >
+            <span className="text-[10px] text-premium-gray/50 tracking-widest uppercase transition-all duration-500 group-hover:text-premium-black">
+              Built by <span className="font-bold relative">
+                Saint
+                <span className="absolute -inset-1 bg-premium-gold/20 blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></span>
+              </span>
+            </span>
+            <div className="w-1.5 h-1.5 rounded-full bg-premium-gold/50 ml-2 opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-500"></div>
+          </div>
+
+          <div className="flex space-x-6 z-10">
             <a href="#" className="text-xs text-premium-gray hover:text-premium-black transition-colors">Privacy Policy</a>
             <a href="#" className="text-xs text-premium-gray hover:text-premium-black transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>
+
+      {/* The Saint Developer Modal (Easter Egg) */}
+      {showEgg && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={() => setShowEgg(false)}></div>
+          <div className="relative bg-[#0C0A09] border border-white/10 rounded-3xl p-10 max-w-sm w-full shadow-2xl shadow-black/50 text-center animate-in zoom-in duration-300">
+            <button 
+              onClick={() => setShowEgg(false)}
+              className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-premium-gold to-yellow-200 p-0.5 mb-6 shadow-[0_0_30px_rgba(212,175,55,0.3)]">
+              <div className="w-full h-full rounded-full bg-[#0C0A09] flex items-center justify-center">
+                <span className="text-3xl">😇</span>
+              </div>
+            </div>
+            <h3 className="text-2xl font-black text-white tracking-tight mb-2">Designed & Engineered by <span className="text-premium-gold">Saint</span></h3>
+            <p className="text-white/60 text-sm mb-8 leading-relaxed">
+              A premium digital experience crafted with passion, precision, and a touch of magic.
+            </p>
+            <button 
+              onClick={() => setShowEgg(false)}
+              className="w-full py-3 rounded-full bg-white text-black font-bold text-sm hover:bg-gray-200 transition-colors"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </footer>
   );
 }
