@@ -12,7 +12,8 @@ const mappings = {
   "samsung galaxy s25+.webp": "Samsung Galaxy S25+",
   "samsung galaxy watch 8.webp": "Samsung Galaxy Watch 8",
   "samsung tab s11 ultra.webp": "Samsung Galaxy Tab S11 Ultra 5G",
-  "tcl qled 98.webp": 'TCL QLED TV 98"'
+  "tcl qled 98.webp": 'TCL QLED TV 98"',
+  "samsung A56 5G.jpeg": "Samsung Galaxy A56 5G"
 };
 
 async function fetchWithRetry(url, options, retries = 5) {

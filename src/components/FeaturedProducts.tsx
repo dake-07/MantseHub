@@ -32,7 +32,7 @@ const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToC
         <img
           src={activeImage}
           alt={product.name}
-          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-contain object-center p-4 sm:p-6 group-hover:scale-105 transition-transform duration-500 mix-blend-darken"
           loading="lazy"
         />
       </div>
