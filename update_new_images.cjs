@@ -13,7 +13,10 @@ const mappings = {
   "samsung galaxy watch 8.webp": "Samsung Galaxy Watch 8",
   "samsung tab s11 ultra.webp": "Samsung Galaxy Tab S11 Ultra 5G",
   "tcl qled 98.webp": 'TCL QLED TV 98"',
-  "samsung A56 5G.jpeg": "Samsung Galaxy A56 5G"
+  "samsung A56 5G.jpeg": "Samsung Galaxy A56 5G",
+  "apple_pencil_2.jpg": "Apple Pencil 2 Normal",
+  "apple_pencil_usbc.jpg": "Apple Pencil 2 Type-C",
+  "apple_pencil_pro.jpg": "Apple Pencil Pro"
 };
 
 async function fetchWithRetry(url, options, retries = 5) {
