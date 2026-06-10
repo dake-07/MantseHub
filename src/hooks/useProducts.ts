@@ -15,7 +15,7 @@ export interface Product {
 }
 
 const CACHE_KEY = 'mantsehub_products_cache';
-const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
 export function useProducts() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -31,15 +31,18 @@ export function useProducts() {
       if (cachedData) {
         try {
           const { timestamp, data } = JSON.parse(cachedData);
-          if (Date.now() - timestamp < CACHE_TTL_MS) {
+          
+          // Instantly show whatever we have in cache (Stale-While-Revalidate)
+          if (data && data.length > 0) {
             setProducts(data);
             setIsLoading(false);
             hasValidCache = true;
-            return; // Cache hit and fresh
-          } else {
-            // Serve stale cache immediately while background fetching
-            setProducts(data);
-            hasValidCache = true;
+          }
+
+          // If the cache is super fresh (under 5 minutes), stop here to save Airtable API limits.
+          // Otherwise, continue downwards and silently fetch the latest data in the background.
+          if (Date.now() - timestamp < CACHE_TTL_MS) {
+            return; 
           }
         } catch (e) {
           console.error("Failed to parse cache", e);
