@@ -282,7 +282,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
                 <div className="space-y-4 mb-8">
                   {selectedProduct.variants && selectedProduct.variants.length > 0 && (
                     <div className="border-b border-black/5 pb-4">
-                      <span className="block text-xs font-bold text-premium-gray/70 uppercase tracking-wider mb-3">Storage / Memory</span>
+                      <span className="block text-xs font-bold text-premium-gray/70 uppercase tracking-wider mb-3">Select Option</span>
                       <div className="flex flex-wrap gap-2">
                         {selectedProduct.variants.map((variant: string, idx: number) => (
                           <button
