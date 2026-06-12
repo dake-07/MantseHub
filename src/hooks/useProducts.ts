@@ -107,9 +107,23 @@ export function useProducts() {
             };
           })
           .sort((a: Product, b: Product) => {
-            const timeA = a.createdTime ? new Date(a.createdTime).getTime() : 0;
-            const timeB = b.createdTime ? new Date(b.createdTime).getTime() : 0;
-            return timeB - timeA;
+            const getPriority = (p: Product) => {
+              const nameLower = p.name.toLowerCase();
+              if (nameLower.includes('fold7')) return 100;
+              if (nameLower.includes('tri-fold')) return 99;
+              const isPhone = ['iPhones', 'Samsung', 'Google'].includes(p.category);
+              if (isPhone) return 50;
+              return 0;
+            };
+            
+            const priorityA = getPriority(a);
+            const priorityB = getPriority(b);
+            
+            if (priorityA !== priorityB) {
+              return priorityB - priorityA;
+            }
+            
+            return b.price - a.price;
           });
 
         setProducts(fetchedProducts);
