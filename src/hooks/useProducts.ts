@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export interface Product {
-  id: number;
+  id: string;
   name: string;
   category: string;
   price: number;
@@ -12,6 +12,7 @@ export interface Product {
   variant_prices?: number[];
   color_variants?: { name: string; hex: string; image: string }[];
   detailed_specs?: { [key: string]: string };
+  createdTime?: string;
 }
 
 const CACHE_KEY = 'mantsehub_products_cache';
@@ -101,10 +102,15 @@ export function useProducts() {
               variants: f.variants ? f.variants.split(',').map((s: string) => s.trim()) : undefined,
               variant_prices: f.variant_prices ? f.variant_prices.split(',').map((s: string) => parseInt(s.trim())) : undefined,
               color_variants: colorVariants,
-              detailed_specs: Object.keys(specs).length > 0 ? specs : undefined
+              detailed_specs: Object.keys(specs).length > 0 ? specs : undefined,
+              createdTime: record.createdTime
             };
           })
-          .sort((a: Product, b: Product) => a.id - b.id); // Sort by original ID
+          .sort((a: Product, b: Product) => {
+            const timeA = a.createdTime ? new Date(a.createdTime).getTime() : 0;
+            const timeB = b.createdTime ? new Date(b.createdTime).getTime() : 0;
+            return timeB - timeA;
+          });
 
         setProducts(fetchedProducts);
         
