@@ -39,7 +39,7 @@ const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToC
         <div className="flex flex-col gap-2 mb-2 sm:mb-3">
           <div className="flex items-center bg-black/5 w-fit px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md max-w-full">
             <span className="text-[9px] sm:text-[11px] font-bold text-premium-black/70 truncate">
-              {product.detailed_specs ? (Object.values(product.detailed_specs)[0] as string) : (product.variants?.length > 1 ? `From ${product.variants[0]}` : (product.variants?.[0] || product.category))}
+              {product.detailed_specs ? (Object.values(product.detailed_specs)[0] as string) : (product.variants?.[0] || product.category)}
             </span>
           </div>
           
