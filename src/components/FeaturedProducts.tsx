@@ -24,11 +24,7 @@ const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToC
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-black/5 overflow-hidden hover:shadow-xl hover:shadow-black/5 transition-shadow duration-300 group flex flex-col h-full">
       <div className="relative aspect-square sm:aspect-w-1 sm:aspect-h-1 bg-gradient-to-tr from-black/5 to-transparent overflow-hidden shrink-0">
-        <div className="absolute top-2 left-2 sm:top-4 sm:left-4 z-10">
-          <span className="bg-premium-black/90 backdrop-blur-md text-white text-[9px] sm:text-[10px] font-bold uppercase tracking-wider py-1 px-2 sm:px-3 rounded-full shadow-sm">
-            {product.name?.includes('Pro') || product.name?.includes('Ultra') || product.name?.includes('Fold') ? 'Pro Series' : product.rating === 5 ? 'Top Rated' : 'New Release'}
-          </span>
-        </div>
+
         <img
           src={activeImage}
           alt={product.name}
@@ -37,7 +33,12 @@ const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToC
         />
       </div>
       <div className="p-3 sm:p-5 flex flex-col flex-grow">
-        <div className="text-[10px] sm:text-xs font-bold tracking-wider text-premium-gray/60 uppercase mb-1 sm:mb-2">{product.category}</div>
+        <div className="flex justify-between items-center mb-1 sm:mb-2">
+          <div className="text-[10px] sm:text-xs font-bold tracking-wider text-premium-gray/60 uppercase">{product.category}</div>
+          {product.rating === 5 && (
+            <span className="text-[9px] sm:text-[10px] font-bold tracking-widest text-premium-gold uppercase">Bestseller</span>
+          )}
+        </div>
         <h3 className="text-sm sm:text-lg font-bold text-premium-black mb-1.5 sm:mb-2 line-clamp-2 sm:truncate leading-tight">{product.name}</h3>
         
         <div className="flex flex-col gap-2 mb-2 sm:mb-3">
