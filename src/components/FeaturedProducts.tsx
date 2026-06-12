@@ -43,7 +43,7 @@ const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToC
         <div className="flex flex-col gap-2 mb-2 sm:mb-3">
           <div className="flex items-center bg-black/5 w-fit px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md max-w-full">
             <span className="text-[9px] sm:text-[11px] font-bold text-premium-black/70 truncate">
-              {product.displayVariant || (product.detailed_specs ? (Object.values(product.detailed_specs)[0] as string) : product.category)}
+              {product.detailed_specs ? (Object.values(product.detailed_specs)[0] as string) : (product.variants?.length > 1 ? `From ${product.variants[0]}` : (product.variants?.[0] || product.category))}
             </span>
           </div>
           
@@ -88,7 +88,7 @@ const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToC
             onClick={() => addToCart({
               ...product,
               price: activePrice,
-              selected_variant: product.displayVariant || (product.variants ? product.variants[selectedVariantIndex] : null)
+              selected_variant: product.variants ? product.variants[selectedVariantIndex] : null
             })}
             className="w-full bg-premium-black text-white text-center py-3 px-2 sm:px-4 rounded-lg sm:rounded-xl font-bold text-xs sm:text-base hover:bg-black/80 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/20 transition-all active:scale-[0.98] min-h-[44px]"
           >
@@ -106,40 +106,12 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
   const [visibleCount, setVisibleCount] = useState(8);
   const { products, isLoading, error } = useProducts();
 
-  // Expand products with storage/memory variants into separate cards
-  const expandedProducts = useMemo(() => {
-    return products.flatMap((product: any) => {
-      const hasMemoryVariants = product.variants && product.variants.length > 0 &&
-        product.variants.some((v: string) => /\d+\s*(GB|TB)/i.test(v));
-
-      if (hasMemoryVariants && product.variants.length > 1) {
-        // Split into one card per memory variant
-        return product.variants.map((variant: string, idx: number) => ({
-          ...product,
-          id: `${product.id}-v${idx}`,
-          displayVariant: variant.trim(),
-          price: product.variant_prices?.[idx] ?? product.price,
-          variants: undefined,
-          variant_prices: undefined,
-        }));
-      }
-
-      // Single variant or non-memory variants — tag with displayVariant if it's a memory spec
-      const firstVariant = product.variants?.[0];
-      const isMemory = firstVariant && /\d+\s*(GB|TB)/i.test(firstVariant);
-      return [{
-        ...product,
-        displayVariant: isMemory ? firstVariant.trim() : undefined,
-      }];
-    });
-  }, [products]);
-
   // Reset visible count when filters change
   useEffect(() => {
     setVisibleCount(8);
   }, [selectedCategory, searchQuery]);
 
-  const filteredProducts = expandedProducts.filter((p: any) => {
+  const filteredProducts = products.filter((p: any) => {
     const matchesCategory = selectedCategory === 'All' || p.category === selectedCategory;
     const safeName = p.name || '';
     const safeCategory = p.category || '';
@@ -304,14 +276,28 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
 
                 <div className="flex justify-between items-start mb-6">
                   <h3 className="text-xl font-bold text-premium-black">{selectedProduct.name}</h3>
-                  <span className="text-xl font-black text-premium-gold whitespace-nowrap ml-4">GH₵ {selectedProduct.price.toLocaleString()}</span>
+                  <span className="text-xl font-black text-premium-gold whitespace-nowrap ml-4">GH₵ {(selectedProduct.variant_prices ? selectedProduct.variant_prices[modalVariantIndex] : selectedProduct.price).toLocaleString()}</span>
                 </div>
 
                 <div className="space-y-4 mb-8">
-                  {selectedProduct.displayVariant && (
-                    <div className="border-b border-black/5 pb-3">
-                      <span className="block text-xs font-bold text-premium-gray/70 uppercase tracking-wider mb-1">Storage / Memory</span>
-                      <span className="block text-sm font-medium text-premium-black">{selectedProduct.displayVariant}</span>
+                  {selectedProduct.variants && selectedProduct.variants.length > 0 && (
+                    <div className="border-b border-black/5 pb-4">
+                      <span className="block text-xs font-bold text-premium-gray/70 uppercase tracking-wider mb-3">Storage / Memory</span>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedProduct.variants.map((variant: string, idx: number) => (
+                          <button
+                            key={idx}
+                            onClick={() => setModalVariantIndex(idx)}
+                            className={`px-4 py-2 rounded-xl text-sm font-bold border transition-all active:scale-95 ${
+                              modalVariantIndex === idx 
+                                ? 'bg-premium-black text-white border-premium-black shadow-md' 
+                                : 'bg-white text-premium-black border-black/20 hover:border-premium-black hover:bg-black/5'
+                            }`}
+                          >
+                            {variant}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   )}
                   {Object.entries(selectedProduct.detailed_specs || {}).map(([key, value]) => (
@@ -331,7 +317,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
                     addToCart({
                       ...selectedProduct,
                       price: selectedProduct.variant_prices ? selectedProduct.variant_prices[modalVariantIndex] : selectedProduct.price,
-                      selected_variant: selectedProduct.displayVariant || (selectedProduct.variants ? selectedProduct.variants[modalVariantIndex] : null)
+                      selected_variant: selectedProduct.variants ? selectedProduct.variants[modalVariantIndex] : null
                     });
                     setSelectedProduct(null);
                   }}
