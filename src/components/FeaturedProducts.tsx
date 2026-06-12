@@ -33,12 +33,7 @@ const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToC
         />
       </div>
       <div className="p-3 sm:p-5 flex flex-col flex-grow">
-        <div className="flex justify-between items-center mb-1 sm:mb-2">
-          <div className="text-[10px] sm:text-xs font-bold tracking-wider text-premium-gray/60 uppercase">{product.category}</div>
-          {product.rating === 5 && (
-            <span className="text-[9px] sm:text-[10px] font-bold tracking-widest text-premium-gold uppercase">Bestseller</span>
-          )}
-        </div>
+        <div className="text-[10px] sm:text-xs font-bold tracking-wider text-premium-gray/60 uppercase mb-1 sm:mb-2">{product.category}</div>
         <h3 className="text-sm sm:text-lg font-bold text-premium-black mb-1.5 sm:mb-2 line-clamp-2 sm:truncate leading-tight">{product.name}</h3>
         
         <div className="flex flex-col gap-2 mb-2 sm:mb-3">
