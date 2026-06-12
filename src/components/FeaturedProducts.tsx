@@ -21,6 +21,11 @@ const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToC
   const activePrice = product.variant_prices ? product.variant_prices[selectedVariantIndex] : product.price;
   const activeImage = product.color_variants && product.color_variants[selectedColorIndex] ? product.color_variants[selectedColorIndex].image : product.image;
 
+  // Extract memory size from name (e.g., "512/12GB", "1TB", "256GB")
+  const memoryMatch = product.name?.match(/\b(\d+(?:\/\d+)?(?:GB|TB))\b/i);
+  const memorySize = memoryMatch ? memoryMatch[0] : null;
+  const cleanName = memorySize ? product.name.replace(memorySize, '').trim() : product.name;
+
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-black/5 overflow-hidden hover:shadow-xl hover:shadow-black/5 transition-shadow duration-300 group flex flex-col h-full">
       <div className="relative aspect-square sm:aspect-w-1 sm:aspect-h-1 bg-gradient-to-tr from-black/5 to-transparent overflow-hidden shrink-0">
@@ -33,13 +38,18 @@ const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToC
         />
       </div>
       <div className="p-3 sm:p-5 flex flex-col flex-grow">
-        <div className="text-[10px] sm:text-xs font-bold tracking-wider text-premium-gray/60 uppercase mb-1 sm:mb-2">{product.category}</div>
-        <h3 className="text-sm sm:text-lg font-bold text-premium-black mb-1.5 sm:mb-2 line-clamp-2 sm:truncate leading-tight">{product.name}</h3>
+        <div className="flex justify-between items-center mb-1 sm:mb-2">
+          <div className="text-[10px] sm:text-xs font-bold tracking-wider text-premium-gray/60 uppercase">{product.category}</div>
+          {product.rating === 5 && (
+            <span className="text-[9px] sm:text-[10px] font-bold tracking-widest text-premium-gold uppercase">Bestseller</span>
+          )}
+        </div>
+        <h3 className="text-sm sm:text-lg font-bold text-premium-black mb-1.5 sm:mb-2 line-clamp-2 leading-tight min-h-[40px] sm:min-h-[56px]">{cleanName}</h3>
         
         <div className="flex flex-col gap-2 mb-2 sm:mb-3">
           <div className="flex items-center bg-black/5 w-fit px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md max-w-full">
             <span className="text-[9px] sm:text-[11px] font-bold text-premium-black/70 truncate">
-              {product.detailed_specs ? (Object.values(product.detailed_specs)[0] as string) : (product.variants?.[0] || product.category)}
+              {product.detailed_specs ? (Object.values(product.detailed_specs)[0] as string) : (memorySize || product.variants?.[0] || product.category)}
             </span>
           </div>
           
