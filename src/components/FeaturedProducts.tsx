@@ -9,6 +9,7 @@ interface FeaturedProps {
   addToCart: (product: any) => void;
   selectedCategory: string;
   onClearFilter: () => void;
+  onClearSearch?: () => void;
   searchQuery?: string;
 }
 
@@ -116,7 +117,7 @@ const ProductCard = React.memo(({ product, setSelectedProduct, setModalVariantIn
   );
 });
 
-export default function FeaturedProducts({ addToCart, selectedCategory, onClearFilter, searchQuery = '' }: FeaturedProps) {
+export default function FeaturedProducts({ addToCart, selectedCategory, onClearFilter, onClearSearch, searchQuery = '' }: FeaturedProps) {
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [modalVariantIndex, setModalVariantIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(8);
@@ -150,15 +151,27 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
     <section id="products" className="py-10 md:py-16 bg-premium-bg relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 sm:mb-10 flex flex-col items-center">
-          <h2 className="text-3xl font-extrabold text-premium-black">
-            {selectedCategory === 'All' ? 'Featured Products' : `${selectedCategory}`}
-          </h2>
-          {selectedCategory === 'All' ? (
-            <p className="mt-4 text-base sm:text-lg text-premium-gray">Top picks from Mantse Electronic Hub.</p>
+          {searchQuery ? (
+            <>
+              <h2 className="text-3xl font-extrabold text-premium-black">Search Results</h2>
+              <p className="mt-4 text-base sm:text-lg text-premium-gray">Showing results for "{searchQuery}"</p>
+              <button onClick={onClearSearch} className="mt-4 text-sm font-medium text-premium-black hover:text-premium-gray bg-black/5 hover:bg-black/10 px-6 py-2 rounded-full transition-colors">
+                Clear Search
+              </button>
+            </>
           ) : (
-            <button onClick={onClearFilter} className="mt-4 text-sm font-medium text-premium-black hover:text-premium-gray bg-black/5 hover:bg-black/10 px-4 py-2 rounded-full transition-colors">
-              View All Products
-            </button>
+            <>
+              <h2 className="text-3xl font-extrabold text-premium-black">
+                {selectedCategory === 'All' ? 'Featured Products' : `${selectedCategory}`}
+              </h2>
+              {selectedCategory === 'All' ? (
+                <p className="mt-4 text-base sm:text-lg text-premium-gray">Top picks from Mantse Electronic Hub.</p>
+              ) : (
+                <button onClick={onClearFilter} className="mt-4 text-sm font-medium text-premium-black hover:text-premium-gray bg-black/5 hover:bg-black/10 px-6 py-2 rounded-full transition-colors">
+                  View All Products
+                </button>
+              )}
+            </>
           )}
         </div>
         

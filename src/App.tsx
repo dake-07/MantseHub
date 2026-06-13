@@ -115,6 +115,7 @@ export default function App() {
           addToCart={addToCart} 
           selectedCategory={selectedCategory} 
           onClearFilter={() => setSelectedCategory('All')} 
+          onClearSearch={() => { setSearchQuery(''); setSelectedCategory('All'); }}
           searchQuery={searchQuery}
         />
         <Showcase onProductSelect={(query) => {
