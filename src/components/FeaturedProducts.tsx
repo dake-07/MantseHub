@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Star, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useProducts } from '../hooks/useProducts';
@@ -12,7 +12,7 @@ interface FeaturedProps {
   searchQuery?: string;
 }
 
-const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToCart }: { product: any, setSelectedProduct: (p: any) => void, setModalVariantIndex: (i: number) => void, addToCart: (p: any) => void }) => {
+const ProductCard = React.memo(({ product, setSelectedProduct, setModalVariantIndex, addToCart }: { product: any, setSelectedProduct: (p: any) => void, setModalVariantIndex: (i: number) => void, addToCart: (p: any) => void }) => {
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
 
@@ -29,13 +29,23 @@ const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToC
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-black/5 overflow-hidden hover:shadow-xl hover:shadow-black/5 transition-shadow duration-300 group flex flex-col h-full">
       <div className="relative aspect-square sm:aspect-w-1 sm:aspect-h-1 bg-gradient-to-tr from-black/5 to-transparent overflow-hidden shrink-0">
-
-        <img
-          src={activeImage}
-          alt={product.name}
-          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 mix-blend-darken"
-          loading="lazy"
-        />
+        {!product.color_variants && (
+          <img
+            src={product.image}
+            alt={product.name}
+            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 transform-gpu mix-blend-darken"
+            loading="lazy"
+          />
+        )}
+        {product.color_variants && product.color_variants.map((color: any, idx: number) => (
+          <img
+            key={idx}
+            src={color.image}
+            alt={`${product.name} ${color.name}`}
+            className={`absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-opacity duration-300 transform-gpu mix-blend-darken ${selectedColorIndex === idx ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}
+            loading={idx === 0 ? 'eager' : 'lazy'}
+          />
+        ))}
       </div>
       <div className="p-3 sm:p-5 flex flex-col flex-grow">
         <div className="flex justify-between items-center mb-1 sm:mb-2">
@@ -104,13 +114,16 @@ const ProductCard = ({ product, setSelectedProduct, setModalVariantIndex, addToC
       </div>
     </div>
   );
-};
+});
 
 export default function FeaturedProducts({ addToCart, selectedCategory, onClearFilter, searchQuery = '' }: FeaturedProps) {
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [modalVariantIndex, setModalVariantIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(8);
   const { products, isLoading, error } = useProducts();
+
+  const handleSetSelectedProduct = useCallback((p: any) => setSelectedProduct(p), []);
+  const handleSetModalVariantIndex = useCallback((i: number) => setModalVariantIndex(i), []);
 
   // Reset visible count when filters change
   useEffect(() => {
@@ -171,7 +184,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
                   <div className="grid grid-cols-2 gap-4 sm:gap-8">
                     {showstoppers.map(product => (
                       <div key={product.id} className="md:scale-[1.02] origin-top">
-                        <ProductCard product={product} setSelectedProduct={setSelectedProduct} setModalVariantIndex={setModalVariantIndex} addToCart={addToCart} />
+                        <ProductCard product={product} setSelectedProduct={handleSetSelectedProduct} setModalVariantIndex={handleSetModalVariantIndex} addToCart={addToCart} />
                       </div>
                     ))}
                   </div>
@@ -187,7 +200,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
                       <div className="flex overflow-x-auto gap-4 sm:gap-6 pb-6 snap-x snap-mandatory hide-scrollbar">
                         {swipeTrack.map(product => (
                           <div key={product.id} className="w-[150px] min-w-[150px] sm:min-w-[200px] lg:min-w-[28%] snap-start shrink-0">
-                            <ProductCard product={product} setSelectedProduct={setSelectedProduct} setModalVariantIndex={setModalVariantIndex} addToCart={addToCart} />
+                            <ProductCard product={product} setSelectedProduct={handleSetSelectedProduct} setModalVariantIndex={handleSetModalVariantIndex} addToCart={addToCart} />
                           </div>
                         ))}
                       </div>
@@ -203,7 +216,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
                     </div>
                     <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 mb-8 sm:mb-12">
                       {displayedGrid.map((product) => (
-                        <ProductCard key={product.id} product={product} setSelectedProduct={setSelectedProduct} setModalVariantIndex={setModalVariantIndex} addToCart={addToCart} />
+                        <ProductCard key={product.id} product={product} setSelectedProduct={handleSetSelectedProduct} setModalVariantIndex={handleSetModalVariantIndex} addToCart={addToCart} />
                       ))}
                     </div>
                     {hasMore && (
@@ -222,7 +235,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
               <div className="flex flex-col items-center">
                 <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 mb-8 sm:mb-12">
                   {displayedGrid.map((product) => (
-                    <ProductCard key={product.id} product={product} setSelectedProduct={setSelectedProduct} setModalVariantIndex={setModalVariantIndex} addToCart={addToCart} />
+                    <ProductCard key={product.id} product={product} setSelectedProduct={handleSetSelectedProduct} setModalVariantIndex={handleSetModalVariantIndex} addToCart={addToCart} />
                   ))}
                 </div>
                 {hasMore && (

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Categories from './components/Categories';
@@ -24,7 +24,7 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const addToCart = (product: any) => {
+  const addToCart = useCallback((product: any) => {
     setCartItems(prev => {
       const existing = prev.find(item => item.product.id === product.id);
       if (existing) {
@@ -35,7 +35,7 @@ export default function App() {
     // Show toast instead of opening drawer immediately
     setToastMessage(`Added to cart: ${product.name}`);
     setTimeout(() => setToastMessage(null), 3000);
-  };
+  }, []);
 
   const updateQuantity = (id: number, delta: number) => {
     setCartItems(prev => prev.map(item => {
