@@ -50,7 +50,7 @@ export default function Hero() {
               <div className="flex items-center gap-1.5">
                 <span className="text-premium-black font-bold text-sm tracking-tight">4.9/5</span>
                 <span className="text-black/10">·</span>
-                <span className="text-premium-gray font-semibold text-sm tracking-tight">Trusted by 12,000+ customers</span>
+                <span className="text-premium-gray font-semibold text-sm tracking-tight">Trusted by 5,000+ customers</span>
               </div>
             </div>
 
