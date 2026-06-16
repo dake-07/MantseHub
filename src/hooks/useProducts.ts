@@ -75,7 +75,7 @@ export function useProducts() {
         
         // Transform Airtable records to our Product type
         const fetchedProducts: Product[] = json.records
-          .filter((record: any) => record.fields.is_active !== false) // Only active
+          .filter((record: any) => record.fields.is_active === true) // Only active
           .map((record: any) => {
             const f = record.fields;
             
