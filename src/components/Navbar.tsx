@@ -52,7 +52,7 @@ export default function Navbar() {
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 md:h-20 items-center">
             <div className="flex items-center">
-              {location.pathname !== '/' && (
+              {location.pathname !== '/' && location.pathname !== '/MantseHub/' && location.pathname !== '/MantseHub' && (
                 <button 
                   onClick={() => navigate(-1)}
                   className="md:hidden mr-2 text-premium-black p-1 rounded-full hover:bg-black/5 flex items-center justify-center transition-colors"
