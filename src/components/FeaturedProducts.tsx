@@ -13,9 +13,13 @@ interface FeaturedProps {
   searchQuery?: string;
 }
 
-const ProductCard = React.memo(({ product, setSelectedProduct, setModalVariantIndex, addToCart }: { product: any, setSelectedProduct: (p: any) => void, setModalVariantIndex: (i: number) => void, addToCart: (p: any) => void }) => {
+import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+
+const ProductCard = React.memo(({ product }: { product: any }) => {
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
+  const { addToCart } = useCart();
 
   if (!product) return null;
 
@@ -29,7 +33,7 @@ const ProductCard = React.memo(({ product, setSelectedProduct, setModalVariantIn
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-black/5 overflow-hidden hover:shadow-xl hover:shadow-black/5 transition-shadow duration-300 group flex flex-col h-full">
-      <div className="relative aspect-square sm:aspect-w-1 sm:aspect-h-1 bg-gradient-to-tr from-black/5 to-transparent overflow-hidden shrink-0">
+      <Link to={`/product/${product.id}`} className="relative aspect-square sm:aspect-w-1 sm:aspect-h-1 bg-gradient-to-tr from-black/5 to-transparent overflow-hidden shrink-0 block">
         {!product.color_variants && (
           <img
             src={product.image}
@@ -47,7 +51,7 @@ const ProductCard = React.memo(({ product, setSelectedProduct, setModalVariantIn
             loading={idx === 0 ? 'eager' : 'lazy'}
           />
         ))}
-      </div>
+      </Link>
       <div className="p-3 sm:p-5 flex flex-col flex-grow">
         <div className="flex justify-between items-center mb-1 sm:mb-2">
           <div className="text-[10px] sm:text-xs font-bold tracking-wider text-premium-gray/60 uppercase">{product.category}</div>
@@ -55,7 +59,9 @@ const ProductCard = React.memo(({ product, setSelectedProduct, setModalVariantIn
             <span className="text-[9px] sm:text-[10px] font-bold tracking-widest text-premium-gold uppercase">Bestseller</span>
           )}
         </div>
-        <h3 className="text-sm sm:text-lg font-bold text-premium-black mb-1.5 sm:mb-2 line-clamp-2 leading-tight min-h-[40px] sm:min-h-[56px]">{cleanName}</h3>
+        <Link to={`/product/${product.id}`}>
+          <h3 className="text-sm sm:text-lg font-bold text-premium-black mb-1.5 sm:mb-2 line-clamp-2 leading-tight min-h-[40px] sm:min-h-[56px] hover:text-premium-gray transition-colors">{cleanName}</h3>
+        </Link>
         
         <div className="flex flex-col gap-2 mb-2 sm:mb-3">
           <div className="flex items-center bg-black/5 w-fit px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md max-w-full">
@@ -69,7 +75,7 @@ const ProductCard = React.memo(({ product, setSelectedProduct, setModalVariantIn
               {product.color_variants.map((color: any, idx: number) => (
                 <button
                   key={idx}
-                  onClick={(e) => { e.stopPropagation(); setSelectedColorIndex(idx); }}
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSelectedColorIndex(idx); }}
                   className="p-1 -m-1"
                   title={color.name}
                   aria-label={`Select color ${color.name}`}
@@ -88,25 +94,22 @@ const ProductCard = React.memo(({ product, setSelectedProduct, setModalVariantIn
           <div className="text-lg font-black text-premium-black mb-1 transition-all duration-300">
             GH₵ {activePrice?.toLocaleString()}
           </div>
-          <button 
-            onClick={() => {
-              setSelectedProduct({
-                ...product,
-                displayImage: activeImage
-              });
-              setModalVariantIndex(selectedVariantIndex);
-            }}
+          <Link 
+            to={`/product/${product.id}`}
             className="text-xs sm:text-sm font-bold text-premium-black hover:text-premium-gray transition-colors group/link w-fit flex items-center py-2 min-h-[44px]"
           >
             Details 
             <span className="ml-1 inline-block transition-transform group-hover/link:translate-x-1">→</span>
-          </button>
+          </Link>
           <button 
-            onClick={() => addToCart({
-              ...product,
-              price: activePrice,
-              selected_variant: product.variants ? product.variants[selectedVariantIndex] : null
-            })}
+            onClick={(e) => {
+              e.preventDefault();
+              addToCart({
+                ...product,
+                price: activePrice,
+                selected_variant: product.variants ? product.variants[selectedVariantIndex] : null
+              });
+            }}
             className="w-full bg-premium-black text-white text-center py-3 px-2 sm:px-4 rounded-lg sm:rounded-xl font-bold text-xs sm:text-base hover:bg-black/80 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/20 transition-all active:scale-[0.98] min-h-[44px]"
           >
             Add to Cart
@@ -117,14 +120,9 @@ const ProductCard = React.memo(({ product, setSelectedProduct, setModalVariantIn
   );
 });
 
-export default function FeaturedProducts({ addToCart, selectedCategory, onClearFilter, onClearSearch, searchQuery = '' }: FeaturedProps) {
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
-  const [modalVariantIndex, setModalVariantIndex] = useState(0);
+export default function FeaturedProducts({ selectedCategory, onClearFilter, onClearSearch, searchQuery = '' }: Omit<FeaturedProps, 'addToCart'>) {
   const [visibleCount, setVisibleCount] = useState(8);
   const { products, isLoading, error } = useProducts();
-
-  const handleSetSelectedProduct = useCallback((p: any) => setSelectedProduct(p), []);
-  const handleSetModalVariantIndex = useCallback((i: number) => setModalVariantIndex(i), []);
 
   // Reset visible count when filters change
   useEffect(() => {
@@ -197,7 +195,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
                   <div className="grid grid-cols-2 gap-4 sm:gap-8">
                     {showstoppers.map(product => (
                       <div key={product.id} className="md:scale-[1.02] origin-top">
-                        <ProductCard product={product} setSelectedProduct={handleSetSelectedProduct} setModalVariantIndex={handleSetModalVariantIndex} addToCart={addToCart} />
+                        <ProductCard product={product} />
                       </div>
                     ))}
                   </div>
@@ -213,7 +211,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
                       <div className="flex overflow-x-auto gap-4 sm:gap-6 pb-6 snap-x snap-mandatory hide-scrollbar">
                         {swipeTrack.map(product => (
                           <div key={product.id} className="w-[150px] min-w-[150px] sm:min-w-[200px] lg:min-w-[28%] snap-start shrink-0">
-                            <ProductCard product={product} setSelectedProduct={handleSetSelectedProduct} setModalVariantIndex={handleSetModalVariantIndex} addToCart={addToCart} />
+                            <ProductCard product={product} />
                           </div>
                         ))}
                       </div>
@@ -229,7 +227,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
                     </div>
                     <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 mb-8 sm:mb-12">
                       {displayedGrid.map((product) => (
-                        <ProductCard key={product.id} product={product} setSelectedProduct={handleSetSelectedProduct} setModalVariantIndex={handleSetModalVariantIndex} addToCart={addToCart} />
+                        <ProductCard key={product.id} product={product} />
                       ))}
                     </div>
                     {hasMore && (
@@ -248,7 +246,7 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
               <div className="flex flex-col items-center">
                 <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 mb-8 sm:mb-12">
                   {displayedGrid.map((product) => (
-                    <ProductCard key={product.id} product={product} setSelectedProduct={handleSetSelectedProduct} setModalVariantIndex={handleSetModalVariantIndex} addToCart={addToCart} />
+                    <ProductCard key={product.id} product={product} />
                   ))}
                 </div>
                 {hasMore && (
@@ -271,97 +269,6 @@ export default function FeaturedProducts({ addToCart, selectedCategory, onClearF
           </div>
         )}
       </div>
-
-      {/* Pop-up Drawer for Specs */}
-      <AnimatePresence>
-        {selectedProduct && (
-          <>
-            <motion.div 
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedProduct(null)}
-            />
-            <motion.div 
-              className="fixed top-0 right-0 h-full w-full sm:max-w-md bg-premium-bg shadow-2xl z-50 flex flex-col"
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            >
-              <div className="flex items-center justify-between p-6 pb-4 shrink-0">
-                <h2 className="text-2xl font-black text-premium-black">Device Specs</h2>
-                <button 
-                  onClick={() => setSelectedProduct(null)}
-                  className="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-black/5 rounded-full transition-colors -mr-2"
-                  aria-label="Close Specs"
-                >
-                  <X className="w-6 h-6 text-premium-gray" />
-                </button>
-              </div>
-              
-              <div className="flex-1 overflow-y-auto px-6 hide-scrollbar pb-4">
-                <div className="mb-6 rounded-2xl overflow-hidden bg-white/80 border border-black/5 p-4 aspect-video flex items-center justify-center">
-                  <img src={selectedProduct.displayImage || selectedProduct.image} alt={selectedProduct.name} className="h-full w-full object-contain mix-blend-darken" loading="lazy" />
-                </div>
-
-                <div className="flex justify-between items-start mb-6">
-                  <h3 className="text-xl font-bold text-premium-black">{selectedProduct.name}</h3>
-                  <span className="text-xl font-black text-premium-gold whitespace-nowrap ml-4">GH₵ {(selectedProduct.variant_prices ? selectedProduct.variant_prices[modalVariantIndex] : selectedProduct.price).toLocaleString()}</span>
-                </div>
-
-                <div className="space-y-4 mb-8">
-                  {selectedProduct.variants && selectedProduct.variants.length > 0 && (
-                    <div className="border-b border-black/5 pb-4">
-                      <span className="block text-xs font-bold text-premium-gray/70 uppercase tracking-wider mb-3">Select Option</span>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedProduct.variants.map((variant: string, idx: number) => (
-                          <button
-                            key={idx}
-                            onClick={() => setModalVariantIndex(idx)}
-                            className={`px-4 py-2 rounded-xl text-sm font-bold border transition-all active:scale-95 ${
-                              modalVariantIndex === idx 
-                                ? 'bg-premium-black text-white border-premium-black shadow-md' 
-                                : 'bg-white text-premium-black border-black/20 hover:border-premium-black hover:bg-black/5'
-                            }`}
-                          >
-                            {variant}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {Object.entries(selectedProduct.detailed_specs || {}).map(([key, value]) => (
-                    <div key={key} className="border-b border-black/5 pb-3">
-                      <span className="block text-xs font-bold text-premium-gray/70 uppercase tracking-wider mb-1">
-                        {key.replace('_', ' ')}
-                      </span>
-                      <span className="block text-sm font-medium text-premium-black">{String(value)}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="shrink-0 p-6 pt-4 bg-premium-bg/90 backdrop-blur-md border-t border-black/5">
-                <button 
-                  onClick={() => {
-                    addToCart({
-                      ...selectedProduct,
-                      price: selectedProduct.variant_prices ? selectedProduct.variant_prices[modalVariantIndex] : selectedProduct.price,
-                      selected_variant: selectedProduct.variants ? selectedProduct.variants[modalVariantIndex] : null
-                    });
-                    setSelectedProduct(null);
-                  }}
-                  className="w-full bg-premium-black text-white text-center py-4 px-4 rounded-xl font-bold text-lg shadow-lg shadow-black/20 hover:bg-black/80 hover:-translate-y-0.5 transition-all"
-                >
-                  Add to Cart
-                </button>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
     </section>
   );
 }

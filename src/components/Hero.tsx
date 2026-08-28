@@ -1,5 +1,6 @@
 import { ArrowRight, Star, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 import laptopImg from '../assets/macbook_placeholder (1).png';
 import consoleImg from '../assets/ps5_placeholder (1).png';
 
@@ -56,19 +57,19 @@ export default function Hero() {
 
             {/* Premium CTAs */}
             <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto mt-1">
-              <a 
-                href="#products" 
+              <Link 
+                to="/shop" 
                 className="inline-flex items-center justify-center px-8 py-3.5 text-base font-bold rounded-full text-white bg-premium-black hover:bg-black/90 hover:shadow-2xl hover:shadow-black/20 transition-all duration-300 w-full sm:w-auto whitespace-nowrap group"
               >
                 Explore Products
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a 
-                href="#products" 
+              </Link>
+              <Link 
+                to="/shop" 
                 className="inline-flex items-center justify-center px-8 py-3.5 text-base font-bold rounded-full text-premium-black bg-white/40 backdrop-blur-md border border-black/10 hover:border-black/30 hover:bg-white/60 hover:shadow-md transition-all duration-300 w-full sm:w-auto whitespace-nowrap shadow-sm"
               >
                 View Today's Deals
-              </a>
+              </Link>
             </div>
           </div>
 
