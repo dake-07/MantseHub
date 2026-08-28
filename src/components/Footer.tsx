@@ -4,8 +4,14 @@ import Logo from './Logo';
 
 export default function Footer() {
   const [showEgg, setShowEgg] = useState(false);
+  const [isMapReady, setIsMapReady] = useState(false);
 
   useEffect(() => {
+    // Delay loading the iframe map to prevent it from stealing focus on initial page load
+    const timer = setTimeout(() => {
+      setIsMapReady(true);
+    }, 1500);
+
     let keySequence = '';
     const secretCode = 'saint';
     
@@ -22,11 +28,14 @@ export default function Footer() {
     };
     
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      clearTimeout(timer);
+    };
   }, []);
 
   return (
-    <footer id="contact" className="bg-[#f0eeeb] pt-16 pb-8">
+    <footer className="bg-[#f0eeeb] pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 mb-12">
           {/* Brand + Social */}
@@ -72,18 +81,19 @@ export default function Footer() {
           {/* Map + Location */}
           <div>
             <h4 className="text-xs font-bold text-premium-black uppercase tracking-wider mb-4">Visit Our Store</h4>
-            <div className="rounded-2xl overflow-hidden border border-black/10 shadow-sm mb-4">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.7225!2d-0.2167!3d5.6037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNcKwMzYnMTMuMyJOIDDCsDEzJzAwLjEiVw!5e0!3m2!1sen!2sgh!4v1"
-                width="100%"
-                height="180"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Mantse Electronics Hub Location"
-                className="w-full"
-              />
+            <div className="rounded-2xl overflow-hidden border border-black/10 shadow-sm mb-4 min-h-[180px]">
+              {isMapReady && (
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.7225!2d-0.2167!3d5.6037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNcKwMzYnMTMuMyJOIDDCsDEzJzAwLjEiVw!5e0!3m2!1sen!2sgh!4v1"
+                  width="100%"
+                  height="180"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Mantse Electronics Hub Location"
+                  className="w-full"
+                />
+              )}
             </div>
             <div className="flex items-start">
               <MapPin className="w-5 h-5 text-premium-gold mr-2.5 flex-shrink-0 mt-0.5" />

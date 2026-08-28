@@ -10,16 +10,26 @@ import Home from './pages/Home';
 import Shop from './pages/Shop';
 import ProductDetail from './pages/ProductDetail';
 import { CartProvider, useCart } from './context/CartContext';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 
 // Scroll to top on route change
 function ScrollToTop() {
   const { pathname } = useLocation();
-  useEffect(() => {
+  useLayoutEffect(() => {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
-    window.scrollTo(0, 0);
+    
+    // Clear hash if it exists to prevent jumping to #contact
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+
+    // Timeout defeats iframe focus stealing
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
+    return () => clearTimeout(timer);
   }, [pathname]);
   return null;
 }
@@ -135,6 +145,7 @@ function AppContent() {
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="*" element={<Home />} />
       </Routes>
       <Footer />
       <CartDrawer />

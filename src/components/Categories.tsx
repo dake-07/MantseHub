@@ -23,11 +23,11 @@ export default function Categories({ onSelectCategory }: CategoriesProps) {
         <div className="text-center mb-12">
           <h2 className="text-4xl font-extrabold text-premium-black tracking-tight">Product Categories</h2>
         </div>
-        <div className="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory gap-4 sm:gap-6 md:grid md:grid-cols-4 lg:grid-cols-5 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 will-change-scroll">
+        <div className="flex overflow-x-auto hide-scrollbar gap-4 sm:gap-6 md:grid md:grid-cols-4 lg:grid-cols-5 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 will-change-scroll">
           {categories.map((category) => (
             <div 
               key={category.name} 
-              className="relative rounded-2xl overflow-hidden group cursor-pointer aspect-[4/5] bg-white/95 border border-black/5 hover:shadow-xl hover:shadow-black/5 transition-all duration-300 flex-shrink-0 w-40 sm:w-48 md:w-auto snap-start will-change-transform" 
+              className="relative rounded-2xl overflow-hidden group cursor-pointer aspect-[4/5] bg-white/95 border border-black/5 hover:shadow-xl hover:shadow-black/5 transition-all duration-300 flex-shrink-0 w-40 sm:w-48 md:w-auto will-change-transform" 
               onClick={() => onSelectCategory(category.name)}
             >
               <img 
