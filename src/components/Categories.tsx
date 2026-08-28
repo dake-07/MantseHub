@@ -18,7 +18,7 @@ interface CategoriesProps {
 
 export default function Categories({ onSelectCategory }: CategoriesProps) {
   return (
-    <section id="categories" className="py-10 md:py-16 bg-premium-bg">
+    <section id="categories" className="py-10 md:py-16 bg-premium-bg scroll-mt-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-extrabold text-premium-black tracking-tight">Product Categories</h2>
