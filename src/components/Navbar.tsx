@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Search, Menu, User, X } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { ShoppingCart, Search, Menu, User, X, ChevronLeft } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import Logo from './Logo';
 
@@ -12,6 +12,7 @@ export default function Navbar() {
   
   const { totalCartCount, setIsCartOpen } = useCart();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (totalCartCount > 0) {
@@ -50,8 +51,17 @@ export default function Navbar() {
       <nav className="sticky top-4 z-50 mx-4 md:mx-auto max-w-7xl transition-all duration-300 mt-4 bg-white/95 transform-gpu border border-white/20 shadow-xl shadow-black/5 rounded-full">
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 md:h-20 items-center">
-            <div className="flex items-center min-w-0 mr-1">
-              <Logo />
+            <div className="flex items-center">
+              {location.pathname !== '/' && (
+                <button 
+                  onClick={() => navigate(-1)}
+                  className="md:hidden mr-2 text-premium-black p-1 rounded-full hover:bg-black/5 flex items-center justify-center transition-colors"
+                  aria-label="Go back"
+                >
+                  <ChevronLeft className="h-6 w-6" />
+                </button>
+              )}
+              <Logo className="scale-90 sm:scale-100 origin-left" />
             </div>
             
             <div className="hidden md:flex space-x-4 lg:space-x-8">

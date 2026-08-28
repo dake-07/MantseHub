@@ -1,9 +1,10 @@
 import React from 'react';
 import logoUrl from '../assets/logo_transparent.png';
+import { Link } from 'react-router-dom';
 
 export default function Logo({ className = "" }: { className?: string }) {
   return (
-    <a href="/" className={`flex items-center group transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98] ${className}`}>
+    <Link to="/" className={`flex items-center group transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98] ${className}`}>
       {/* The Logo Graphic (Image Mask) */}
       <div 
         className="bg-premium-gold mr-1.5 sm:mr-2 flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10"
@@ -28,6 +29,6 @@ export default function Logo({ className = "" }: { className?: string }) {
           <span className="text-premium-black ml-1 sm:ml-0">HUB</span>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }
